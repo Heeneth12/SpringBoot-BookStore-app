@@ -1,20 +1,13 @@
 package com.telusk.springbootbookstore.entity;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 import java.time.LocalDate;
-
-
-
-@Entity
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
 @Setter
+@Getter
+@Entity
 public class UserEntity {
 
     @Id
@@ -27,4 +20,33 @@ public class UserEntity {
     private String userPassword;
     private Boolean UserVerify;
     private int UserOtp;
+
+    public UserEntity() {
+    }
+    public UserEntity(Long userId, String userFirstName, String userLastName, String userEmail, LocalDate userLocalDate, LocalDate userRegisteredDate, String userPassword, Boolean userVerify, int userOtp) {
+        this.userId = userId;
+        this.userFirstName = userFirstName;
+        this.userLastName = userLastName;
+        this.userEmail = userEmail;
+        this.userLocalDate = userLocalDate;
+        this.userRegisteredDate = userRegisteredDate;
+        this.userPassword = userPassword;
+        UserVerify = userVerify;
+        UserOtp = userOtp;
+    }
+
+    @Override
+    public String toString() {
+        return "UserEntity{" +
+                "userId=" + userId +
+                ", userFirstName='" + userFirstName + '\'' +
+                ", userLastName='" + userLastName + '\'' +
+                ", userEmail='" + userEmail + '\'' +
+                ", userLocalDate=" + userLocalDate +
+                ", userRegisteredDate=" + userRegisteredDate +
+                ", userPassword='" + userPassword + '\'' +
+                ", UserVerify=" + UserVerify +
+                ", UserOtp=" + UserOtp +
+                '}';
+    }
 }
