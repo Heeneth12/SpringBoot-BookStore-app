@@ -1,4 +1,7 @@
 package com.telusk.springbootbookstore.repository;
 
-public interface BooksRepo {
+import com.telusk.springbootbookstore.entity.BookEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface BooksRepo extends JpaRepository<BookEntity,Long> {
 }
