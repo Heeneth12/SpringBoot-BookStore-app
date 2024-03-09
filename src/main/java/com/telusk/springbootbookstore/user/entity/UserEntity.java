@@ -1,52 +1,45 @@
 package com.telusk.springbootbookstore.user.entity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import lombok.Getter;
-import lombok.Setter;
 
-import java.time.LocalDate;
-@Setter
+import jakarta.persistence.*;
+import lombok.*;
+@NoArgsConstructor
 @Getter
+@Setter
 @Entity
-public class UserEntity {
+//userDetails
+public class UserEntity{
 
     @Id
-    private Long userId;
-    private String userFirstName;
-    private String userLastName;
-    private String userEmail;
-    private LocalDate userLocalDate;
-    private LocalDate userRegisteredDate;
-    private String userPassword;
-    private Boolean UserVerify;
-    private int UserOtp;
+    @GeneratedValue
+    private  Long id;
+    private  String firstName;
+    private  String lastName;
+    private  String email;
+    private String password;
+    private Integer age;
+    private String gender;
 
-    public UserEntity() {
-    }
-    public UserEntity(Long userId, String userFirstName, String userLastName, String userEmail, LocalDate userLocalDate, LocalDate userRegisteredDate, String userPassword, Boolean userVerify, int userOtp) {
-        this.userId = userId;
-        this.userFirstName = userFirstName;
-        this.userLastName = userLastName;
-        this.userEmail = userEmail;
-        this.userLocalDate = userLocalDate;
-        this.userRegisteredDate = userRegisteredDate;
-        this.userPassword = userPassword;
-        UserVerify = userVerify;
-        UserOtp = userOtp;
+
+    public UserEntity(Long id, String firstName, String lastName, String email, String password, Integer age, String gender) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.age = age;
+        this.gender = gender;
     }
 
     @Override
     public String toString() {
-        return "UserEntity{" +
-                "userId=" + userId +
-                ", userFirstName='" + userFirstName + '\'' +
-                ", userLastName='" + userLastName + '\'' +
-                ", userEmail='" + userEmail + '\'' +
-                ", userLocalDate=" + userLocalDate +
-                ", userRegisteredDate=" + userRegisteredDate +
-                ", userPassword='" + userPassword + '\'' +
-                ", UserVerify=" + UserVerify +
-                ", UserOtp=" + UserOtp +
+        return "UserData{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", age=" + age +
+                ", gender='" + gender + '\'' +
                 '}';
     }
 }

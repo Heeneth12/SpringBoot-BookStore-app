@@ -1,7 +1,9 @@
 package com.telusk.springbootbookstore.user.controller;
 
 
-import com.telusk.springbootbookstore.user.dto.UserDto;
+import com.telusk.springbootbookstore.user.config.EmailSender;
+import com.telusk.springbootbookstore.user.config.UserJwt;
+import com.telusk.springbootbookstore.user.dto.UserLoginDto;
 import com.telusk.springbootbookstore.user.service.IUserReg;
 import com.telusk.springbootbookstore.user.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,24 +13,36 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@ResponseStatus(HttpStatus.OK)
 public class UserController {
 
 
     @Autowired
     IUserReg iUserReg;
 
-    @PostMapping("/userReg")
+    @Autowired
+    EmailSender emailSender;
+
+
+    @Autowired
+    UserJwt userJwt;
+
+    @PostMapping("/Reg")
     @ResponseStatus(HttpStatus.CREATED)
     public  String userRegistration(@RequestBody UserEntity userEntity){
+       emailSender.sendEmail( userEntity.getFirstName() ,userEntity.getEmail());
         return iUserReg.UserRegistration(userEntity);
     }
 
-    @GetMapping("getUserById/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public List<UserDto> getUserById(@PathVariable Long id){
-        return iUserReg.getUserById(id);
+    @PostMapping("/login")
+    public String userLogin(@RequestBody UserLoginDto userLoginDto){
+        return  iUserReg.UserLogin(userLoginDto);
     }
 
 
+    @GetMapping("getByJWT")
+    public List<UserEntity> getByJWT(@RequestHeader String token){
+        return  iUserReg.getUserByJWT(token);
+    }
 
 }

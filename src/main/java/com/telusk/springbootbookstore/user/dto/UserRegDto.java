@@ -1,22 +1,32 @@
 package com.telusk.springbootbookstore.user.dto;
-
-import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
-
 @Getter
 @Setter
-public class UserRegDto {
+public class UserRegDto  {
+    private  String firstName;
+    private  String lastName;
+    private  String email;
+    private String password;
 
+    public UserRegDto() {
+    }
 
-    private Long userId;
-    private String userFirstName;
-    private String userLastName;
-    private String userEmail;
-    private String userPassword;
-    private LocalDate userLocalDate;
-    private LocalDate userRegisteredDate;
+    public UserRegDto(String firstName, String lastName, String email, String password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+    }
 
+    @Override
+    public String toString() {
+        return "UserRegDto{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }
