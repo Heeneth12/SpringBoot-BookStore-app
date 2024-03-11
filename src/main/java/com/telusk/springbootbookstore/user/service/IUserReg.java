@@ -8,8 +8,8 @@ import java.util.List;
 public interface IUserReg {
 
 
-    String UserRegistration(UserEntity userEntity);
-    String UserLogin(UserLoginDto userLoginDto);
+    String userRegistration(UserEntity userEntity);
+    String userLogin(UserLoginDto userLoginDto);
 
     List<UserEntity> getUserByJWT(String token);
 }

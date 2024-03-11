@@ -16,7 +16,7 @@ public class EmailSender {
     @Autowired
     private Environment environment;
 
-    public  void sendEmail(String name,String to ) {
+    public  void sendEmail(String name,String to , String subject, String body  ) {
         // Sender's email ID and password
         final String username = "heeneth123@gmail.com";
 //      final String password = "qwlv qeab pria mrul";
@@ -24,10 +24,7 @@ public class EmailSender {
         String password = environment.getProperty("your.application.password");
 //        System.out.println("Password: " + password);
 
-
-        String subject  = name + " Registration successful!";
-
-        String body = to +" Thanks for registering in Book store app" ;
+        String subjectTest =  name +" "+ subject ;
 
         Properties properties = new Properties();
         properties.put("mail.smtp.auth", "true");
@@ -53,7 +50,7 @@ public class EmailSender {
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
 
             // Set Subject: header field
-            message.setSubject(subject);
+            message.setSubject(subjectTest );
 
             // Set the actual message
             message.setText(body);

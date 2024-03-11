@@ -14,6 +14,7 @@ public class BookEntity {
     @GeneratedValue()
     public Long bookId;
     public String bookName;
+    public String bookDescription;
     public String bookAuthor;
     public Integer bookPrize;
     public Integer bookQuantity;

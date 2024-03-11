@@ -14,6 +14,7 @@ import java.util.List;
 
 @RestController
 @ResponseStatus(HttpStatus.OK)
+@CrossOrigin("http://localhost:3000")
 public class UserController {
 
 
@@ -30,13 +31,12 @@ public class UserController {
     @PostMapping("/Reg")
     @ResponseStatus(HttpStatus.CREATED)
     public  String userRegistration(@RequestBody UserEntity userEntity){
-       emailSender.sendEmail( userEntity.getFirstName() ,userEntity.getEmail());
-        return iUserReg.UserRegistration(userEntity);
+        return iUserReg.userRegistration(userEntity);
     }
 
     @PostMapping("/login")
     public String userLogin(@RequestBody UserLoginDto userLoginDto){
-        return  iUserReg.UserLogin(userLoginDto);
+        return  iUserReg.userLogin(userLoginDto);
     }
 
 
