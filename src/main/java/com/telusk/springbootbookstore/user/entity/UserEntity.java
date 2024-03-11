@@ -10,7 +10,7 @@ import lombok.*;
 public class UserEntity{
 
     @Id
-    @GeneratedValue
+    @GeneratedValue (strategy = GenerationType.AUTO)
     private  Long id;
     private  String firstName;
     private  String lastName;

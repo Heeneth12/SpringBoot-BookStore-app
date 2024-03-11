@@ -25,7 +25,6 @@ public class EmailSender {
 //        System.out.println("Password: " + password);
 
         String subjectTest =  name +" "+ subject ;
-
         Properties properties = new Properties();
         properties.put("mail.smtp.auth", "true");
         properties.put("mail.smtp.starttls.enable", "true");
