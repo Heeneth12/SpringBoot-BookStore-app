@@ -4,6 +4,7 @@ import com.telusk.springbootbookstore.user.dto.UserLoginDto;
 import com.telusk.springbootbookstore.user.entity.UserEntity;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface IUserReg {
 
@@ -11,5 +12,5 @@ public interface IUserReg {
     String userRegistration(UserEntity userEntity);
     String userLogin(UserLoginDto userLoginDto);
 
-    List<UserEntity> getUserByJWT(String token);
+    List<Optional<UserEntity>> getUserByJWT(String token);
 }

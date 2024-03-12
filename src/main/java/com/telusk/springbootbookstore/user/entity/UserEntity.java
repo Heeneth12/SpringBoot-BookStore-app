@@ -2,6 +2,8 @@ package com.telusk.springbootbookstore.user.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 @NoArgsConstructor
 @Getter
 @Setter
@@ -10,11 +12,12 @@ import lombok.*;
 public class UserEntity{
 
     @Id
-    @GeneratedValue (strategy = GenerationType.AUTO)
+    @GeneratedValue
     private  Long id;
     private  String firstName;
     private  String lastName;
     private  String email;
+    @Column(nullable = false)
     private String password;
     private Integer age;
     private String gender;
@@ -32,14 +35,7 @@ public class UserEntity{
 
     @Override
     public String toString() {
-        return "UserData{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", age=" + age +
-                ", gender='" + gender + '\'' +
-                '}';
+        return STR."UserData{id=\{id}, firstName='\{firstName}\{'\''}, lastName='\{lastName}\{'\''}, email='\{email}\{'\''}, password='\{password}\{'\''}, age=\{age}, gender='\{gender}\{'\''}\{'}'}";
     }
+
 }

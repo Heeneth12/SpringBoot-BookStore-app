@@ -40,9 +40,9 @@ public class UserController {
     }
 
 
-    @GetMapping("getByJWT")
-    public List<UserEntity> getByJWT(@RequestHeader String token){
-        return  iUserReg.getUserByJWT(token);
-    }
+//    @GetMapping("getByJWT")
+//    public List<UserEntity> getByJWT(@RequestHeader String token){
+//        return  iUserReg.getUserByJWT(token);
+//    }
 
 }

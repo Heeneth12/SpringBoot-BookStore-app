@@ -15,14 +15,13 @@ public class UserJwt {
                 .sign(Algorithm.HMAC256(Base64.getEncoder().encode(SECRET_KEY.getBytes())));
     }
 
-    public String decodeToken(String token) {
+    public Long decodeToken(String token) {
         try {
-            String userId = JWT.require(Algorithm.HMAC256(Base64.getEncoder().encode(SECRET_KEY.getBytes())))
+            Long userId = Long.valueOf(JWT.require(Algorithm.HMAC256(Base64.getEncoder().encode(SECRET_KEY.getBytes())))
                     .build()
                     .verify(token)
                     .getClaim("userId")
-                    .asString();
-
+                    .asString());
             return userId;
         } catch (Exception e) {
             // Handle token decoding exception
