@@ -21,9 +21,10 @@ public class UserEntity{
     private String password;
     private Integer age;
     private String gender;
+    private Boolean userVerify;
 
 
-    public UserEntity(Long id, String firstName, String lastName, String email, String password, Integer age, String gender) {
+    public UserEntity(Long id, String firstName, String lastName, String email, String password, Integer age, String gender , Boolean userVerify) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -31,11 +32,21 @@ public class UserEntity{
         this.password = password;
         this.age = age;
         this.gender = gender;
+        this.userVerify = userVerify;
     }
 
     @Override
     public String toString() {
-        return STR."UserData{id=\{id}, firstName='\{firstName}\{'\''}, lastName='\{lastName}\{'\''}, email='\{email}\{'\''}, password='\{password}\{'\''}, age=\{age}, gender='\{gender}\{'\''}\{'}'}";
+        return "UserEntity{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", age=" + age +
+                ", gender='" + gender + '\'' +
+                ", userVerify=" + userVerify +
+                '}';
     }
 
 }

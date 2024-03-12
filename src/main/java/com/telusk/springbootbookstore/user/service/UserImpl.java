@@ -38,12 +38,14 @@ public class UserImpl implements IUserReg {
         userEntity.setPassword(encryptedPassword);
         System.out.println(passwordEncoder.matches("9089",encryptedPassword));
 
+        //setting user verify  false to get true need to login once;
+        userEntity.setUserVerify(false);
 
         userRepo.save(userEntity);
         String body =" Thanks for registering in Book store app."+ " click here to verify you account   " + "http://localhost:8081/login" ;
         String subject = "register successfully and get verify your account";
         emailSender.sendEmail( userEntity.getFirstName() ,userEntity.getEmail() ,subject, body);
-        System.out.println(userEntity.getPassword());
+//        System.out.println(userEntity.getPassword());
         return  "User register successfully";
 
     }
@@ -53,13 +55,18 @@ public class UserImpl implements IUserReg {
 //        UserEntity userEntity = userRepo.findByUsernameAndPassword(userLoginDto.getEmail(), userLoginDto.getPassword());
         UserEntity userEntity = userRepo.findByEmail(userLoginDto.getEmail());
 
-        if (userEntity != null && passwordEncoder.matches(userLoginDto.getPassword() ,userEntity.getPassword())) {
 
+
+        if (userEntity != null && passwordEncoder.matches(userLoginDto.getPassword() ,userEntity.getPassword())) {
+            if(userEntity.getUserVerify().equals(false)){
+                String body =" Thanks for verification your account in Book store app.";
+                String subject = "account verification  successfully..!";
+                emailSender.sendEmail( userLoginDto.getEmail(),userLoginDto.getEmail() ,subject, body);
+                userEntity.setUserVerify(true);
+                userRepo.save(userEntity);
+            }
             // User exists, generate JWT token
             String token = userJwt.createToken(userEntity.getId());
-            String body =" Thanks for verification your account in Book store app.";
-            String subject = "account verification  successfully..!";
-            emailSender.sendEmail( userLoginDto.getEmail(),userLoginDto.getEmail() ,subject, body);
             return "Login successful. JWT Token: " + token;
         } else {
             return "Invalid credentials. Login failed.";
