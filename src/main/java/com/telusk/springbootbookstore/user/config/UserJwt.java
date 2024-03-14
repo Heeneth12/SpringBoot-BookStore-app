@@ -3,30 +3,39 @@ package com.telusk.springbootbookstore.user.config;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import org.springframework.stereotype.Component;
-import java.util.Base64;
+
+import java.nio.charset.StandardCharsets;
 
 @Component
 public class UserJwt {
+    // Secret key to sign the token
     private static final String SECRET_KEY = "Heeneth";
 
-    public String createToken(Long userId) {
+    // Expiration time for the token (in milliseconds)
+    private static final long EXPIRATION_TIME = 86400000; // 1 day in milliseconds
+
+    // Method to create JWT token
+    public String createToken(Long id) {
         return JWT.create()
-                .withClaim("userId", userId)
-                .sign(Algorithm.HMAC256(Base64.getEncoder().encode(SECRET_KEY.getBytes())));
+                .withClaim("id", id)
+                .sign(Algorithm.HMAC256(SECRET_KEY.getBytes(StandardCharsets.UTF_8)));
     }
 
+    // Method to decode JWT token
     public Long decodeToken(String token) {
         try {
-            Long userId = Long.valueOf(JWT.require(Algorithm.HMAC256(Base64.getEncoder().encode(SECRET_KEY.getBytes())))
+            Long userId = JWT.require(Algorithm.HMAC256(SECRET_KEY.getBytes(StandardCharsets.UTF_8)))
                     .build()
                     .verify(token)
-                    .getClaim("userId")
-                    .asString());
+                    .getClaim("id")
+                    .asLong();
+            System.out.println("Decoded userId: " + userId);
             return userId;
         } catch (Exception e) {
             // Handle token decoding exception
+            e.printStackTrace();
+            System.err.println("Token decoding failed: " + e.getMessage());
             return null;
         }
     }
-
 }

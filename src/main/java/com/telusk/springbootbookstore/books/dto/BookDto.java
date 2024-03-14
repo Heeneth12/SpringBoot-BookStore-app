@@ -13,6 +13,9 @@ public class BookDto {
     public String bookName;
     public String bookAuthor;
     public Integer bookPrize;
+    public String bookLogo;
+    public String bookDescription;
+
 
     @Override
     public String toString() {
@@ -21,6 +24,7 @@ public class BookDto {
                 ", bookName='" + bookName + '\'' +
                 ", bookAuthor='" + bookAuthor + '\'' +
                 ", bookPrize=" + bookPrize +
+                ", bookLogo='" + bookLogo + '\'' +
                 '}';
     }
 }

@@ -3,17 +3,17 @@ package com.telusk.springbootbookstore.user.controller;
 
 import com.telusk.springbootbookstore.user.config.EmailSender;
 import com.telusk.springbootbookstore.user.config.UserJwt;
-import com.telusk.springbootbookstore.user.dto.UserLoginDto;
+import com.telusk.springbootbookstore.user.config.UserOTP;
+import com.telusk.springbootbookstore.user.dto.*;
 import com.telusk.springbootbookstore.user.service.IUserReg;
 import com.telusk.springbootbookstore.user.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Optional;
 
 @RestController
-@ResponseStatus(HttpStatus.OK)
 @CrossOrigin("http://localhost:3000")
 public class UserController {
 
@@ -28,6 +28,8 @@ public class UserController {
     @Autowired
     UserJwt userJwt;
 
+
+
     @PostMapping("/Reg")
     @ResponseStatus(HttpStatus.CREATED)
     public  String userRegistration(@RequestBody UserEntity userEntity){
@@ -40,9 +42,27 @@ public class UserController {
     }
 
 
-//    @GetMapping("getByJWT")
-//    public List<UserEntity> getByJWT(@RequestHeader String token){
-//        return  iUserReg.getUserByJWT(token);
-//    }
+    @GetMapping("/getByJWT")
+    public Optional<UserEntity> getByJWT(@RequestHeader String token){
+        System.out.println( "controller" +token);
+        return  iUserReg.getUserByJWT(token);
+    }
+
+    @PostMapping("/resetPassword")
+    public String editPasswordByOldPassword(@RequestBody UserResetPassword userResetPassword){
+        return iUserReg.resetPassword(userResetPassword);
+
+    }
+
+    @PostMapping("/forgotPassword")
+    public String forgotPassword (@RequestBody UserEmail userEmail){
+        return iUserReg.userOtpGen(userEmail);
+    }
+
+    @PostMapping("/setTheForgotPassword")
+    public String setTheForgotPassword( @RequestBody UserForgotPasswordDto userForgotPasswordDto){
+
+        return iUserReg.forgotPasswordSetByOtp(userForgotPasswordDto);
+    }
 
 }

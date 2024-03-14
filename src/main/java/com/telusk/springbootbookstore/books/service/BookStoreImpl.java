@@ -25,7 +25,9 @@ public class BookStoreImpl implements IBooksStore {
                         bookEntity.getBookId(),
                         bookEntity.getBookName(),
                         bookEntity.getBookAuthor(),
-                        bookEntity.getBookPrize()
+                        bookEntity.getBookPrize(),
+                        bookEntity.getBookLogo(),
+                        bookEntity.getBookDescription()
                 )).collect(Collectors.toList());
     }
 
@@ -41,8 +43,24 @@ public class BookStoreImpl implements IBooksStore {
                        bookEntity.getBookId(),
                        bookEntity.getBookName(),
                        bookEntity.getBookAuthor(),
-                       bookEntity.getBookPrize()
+                       bookEntity.getBookPrize(),
+                       bookEntity.getBookLogo(),
+                       bookEntity.getBookDescription()
                )).collect(Collectors.toList());
+    }
+
+    public String editBookById(Long id, BookEntity bookEntity) {
+        Optional<BookEntity> optionalBookEntity = booksRepo.findById(id);
+        if (optionalBookEntity.isPresent()) {
+            BookEntity existingBookEntity = optionalBookEntity.get();
+            existingBookEntity.setBookName(bookEntity.getBookName());
+            existingBookEntity.setBookAuthor(bookEntity.getBookAuthor());
+            existingBookEntity.setBookPrize(bookEntity.getBookPrize());
+            booksRepo.save(existingBookEntity);
+            return "Edited Successfully";
+        } else {
+            return "Book with ID " + id + " not found";
+        }
     }
 
     public String deleteById(Long id ){

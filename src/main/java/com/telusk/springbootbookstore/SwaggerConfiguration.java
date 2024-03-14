@@ -32,6 +32,24 @@ public class SwaggerConfiguration {
                 .paths(PathSelectors.any())
                 .build();
     }
+    @Bean
+    public Docket orderApi() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("order")
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.telusk.springbootbookstore.order.controller"))
+                .paths(PathSelectors.any())
+                .build();
+    }
+    @Bean
+    public Docket cartApi() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("cart")
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.telusk.springbootbookstore.cart.controller"))
+                .paths(PathSelectors.any())
+                .build();
+    }
 
 
     @Bean

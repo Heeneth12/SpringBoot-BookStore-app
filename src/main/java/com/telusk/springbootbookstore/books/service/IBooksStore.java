@@ -12,6 +12,8 @@ public interface IBooksStore {
 
     List<BookDto> addBooks( BookEntity bookEntity);
     List<BookDto> getBookById(Long id);
+
+    String editBookById(Long id , BookEntity bookEntity);
     String deleteById(Long id );
 
 

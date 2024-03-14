@@ -23,6 +23,16 @@ public class BookEntity {
     public String bookLogo;
 
 
+    public BookEntity(Long bookId, String bookName, String bookDescription, String bookAuthor, Integer bookPrize, Integer bookQuantity, String bookLogo) {
+        this.bookId = bookId;
+        this.bookName = bookName;
+        this.bookDescription = bookDescription;
+        this.bookAuthor = bookAuthor;
+        this.bookPrize = bookPrize;
+        this.bookQuantity = bookQuantity;
+        this.bookLogo = bookLogo;
+    }
+
     @Override
     public String toString() {
         return "BookEntity{" +
@@ -36,14 +46,7 @@ public class BookEntity {
                 '}';
     }
 
-    public BookEntity(Long bookId, String bookName, String bookAuthor, Integer bookPrize, Integer bookQuantity ,String bookLogo ) {
-        this.bookId = bookId;
-        this.bookName = bookName;
-        this.bookAuthor = bookAuthor;
-        this.bookPrize = bookPrize;
-        this.bookQuantity = bookQuantity;
-        this.bookLogo = bookLogo;
-    }
+
 
     public BookEntity() {
 
