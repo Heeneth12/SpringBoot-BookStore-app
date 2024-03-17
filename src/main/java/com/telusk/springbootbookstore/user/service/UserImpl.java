@@ -4,16 +4,14 @@ import com.telusk.springbootbookstore.user.config.EmailSender;
 import com.telusk.springbootbookstore.user.config.PasswordEncoder;
 import com.telusk.springbootbookstore.user.config.UserJwt;
 import com.telusk.springbootbookstore.user.config.UserOTP;
-import com.telusk.springbootbookstore.user.dto.UserEmail;
-import com.telusk.springbootbookstore.user.dto.UserForgotPasswordDto;
-import com.telusk.springbootbookstore.user.dto.UserResetPassword;
-import com.telusk.springbootbookstore.user.dto.UserLoginDto;
+import com.telusk.springbootbookstore.user.dto.*;
 import com.telusk.springbootbookstore.user.entity.UserEntity;
 import com.telusk.springbootbookstore.user.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 
+import java.util.HashMap;
 import java.util.Optional;
 
 
@@ -39,15 +37,22 @@ public class UserImpl implements IUserReg {
     public  Integer otpChecker;
 
 
-    public String userRegistration(UserEntity userEntity) {
+    public String userRegistration(UserRegDto userRegDto) {
 
         //password encoder
-        String encryptedPassword =passwordEncoder.encode(userEntity.getPassword());
-        userEntity.setPassword(encryptedPassword);
-//        System.out.println(passwordEncoder.matches("9089",encryptedPassword));
+        String encryptedPassword =passwordEncoder.encode(userRegDto.getPassword());
+        userRegDto.setPassword(encryptedPassword);
 
         //setting user verify  false to get true need to login once;
+        UserEntity userEntity = new UserEntity();
+        userEntity.setFirstName(userRegDto.getFirstName());
+        userEntity.setLastName(userRegDto.getLastName());
+        userEntity.setAge(userRegDto.getAge());
+        userEntity.setEmail(userRegDto.getEmail());
+        userEntity.setPassword(userRegDto.getPassword());
+        userEntity.setGender(userRegDto.getGender());
         userEntity.setUserVerify(false);
+        System.out.println(userEntity.toString());
 
         userRepo.save(userEntity);
         String body =" Thanks for registering in Book store app."+ " click here to verify you account   " + "http://localhost:8081/login" ;
@@ -59,7 +64,7 @@ public class UserImpl implements IUserReg {
     }
 
 
-    public String userLogin(UserLoginDto userLoginDto) {
+    public HashMap<String,String> userLogin(UserLoginDto userLoginDto) {
 //        UserEntity userEntity = userRepo.findByUsernameAndPassword(userLoginDto.getEmail(), userLoginDto.getPassword());
         UserEntity userEntity = userRepo.findByEmail(userLoginDto.getEmail());
 
@@ -75,9 +80,12 @@ public class UserImpl implements IUserReg {
             }
             // User exists, generate JWT token
             String token = userJwt.createToken(userEntity.getId());
-            return "Login successful. JWT Token: " + token;
+            HashMap<String, String> data = new HashMap<String, String>();
+            data.put("status" ,"ok");
+            data.put("token", token);
+            return data;
         } else {
-            return "Invalid credentials. Login failed.";
+            return null;
         }
     }
 

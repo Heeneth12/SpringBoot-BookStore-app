@@ -9,15 +9,22 @@ public class UserRegDto  {
     private  String lastName;
     private  String email;
     private String password;
+    private  int age;
+    private String gender;
+    private Boolean userVerify;
 
     public UserRegDto() {
     }
 
-    public UserRegDto(String firstName, String lastName, String email, String password) {
+
+    public UserRegDto(String firstName, String lastName, String email, String password, int age, String gender, Boolean userVerify) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
+        this.age = age;
+        this.gender = gender;
+        this.userVerify =userVerify;
     }
 
     @Override
@@ -28,5 +35,8 @@ public class UserRegDto  {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 '}';
+    }
+
+    public void setUserVerify(boolean b) {
     }
 }

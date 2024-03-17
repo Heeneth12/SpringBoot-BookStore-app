@@ -1,8 +1,10 @@
 package com.telusk.springbootbookstore.user.entity;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.telusk.springbootbookstore.cart.entity.CartEntity;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -22,9 +24,12 @@ public class UserEntity{
     private Integer age;
     private String gender;
     private Boolean userVerify;
+    //A user can have multiple items in cart
+    @OneToMany(mappedBy = "userEntity")
+    @JsonIgnore
+    private List<CartEntity> carts;
 
-
-    public UserEntity(Long id, String firstName, String lastName, String email, String password, Integer age, String gender , Boolean userVerify) {
+    public UserEntity(Long id, String firstName, String lastName, String email, String password, Integer age, String gender, Boolean userVerify, List<CartEntity> carts) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -33,6 +38,7 @@ public class UserEntity{
         this.age = age;
         this.gender = gender;
         this.userVerify = userVerify;
+        this.carts = carts;
     }
 
     @Override
@@ -48,5 +54,4 @@ public class UserEntity{
                 ", userVerify=" + userVerify +
                 '}';
     }
-
 }

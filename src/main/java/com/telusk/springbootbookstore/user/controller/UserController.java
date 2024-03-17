@@ -11,10 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin("http://localhost:4200")
 public class UserController {
 
 
@@ -32,12 +33,12 @@ public class UserController {
 
     @PostMapping("/Reg")
     @ResponseStatus(HttpStatus.CREATED)
-    public  String userRegistration(@RequestBody UserEntity userEntity){
-        return iUserReg.userRegistration(userEntity);
+    public  String userRegistration(@RequestBody UserRegDto userRegDto){
+        return iUserReg.userRegistration(userRegDto);
     }
 
     @PostMapping("/login")
-    public String userLogin(@RequestBody UserLoginDto userLoginDto){
+    public HashMap<String, String> userLogin(@RequestBody UserLoginDto userLoginDto){
         return  iUserReg.userLogin(userLoginDto);
     }
 
@@ -59,7 +60,7 @@ public class UserController {
         return iUserReg.userOtpGen(userEmail);
     }
 
-    @PostMapping("/setTheForgotPassword")
+    @PostMapping("/setTheForgotPassword ")
     public String setTheForgotPassword( @RequestBody UserForgotPasswordDto userForgotPasswordDto){
 
         return iUserReg.forgotPasswordSetByOtp(userForgotPasswordDto);

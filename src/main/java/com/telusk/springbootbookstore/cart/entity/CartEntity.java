@@ -1,12 +1,11 @@
 package com.telusk.springbootbookstore.cart.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.telusk.springbootbookstore.books.entity.BookEntity;
 import com.telusk.springbootbookstore.user.entity.UserEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-
 
 @Setter
 @Getter
@@ -14,18 +13,28 @@ import lombok.Setter;
 public class CartEntity {
 
     @Id
-    private Long cartID;
-//  private UserEntity userEntity;
-//  private BookEntity bookEntity;
-    private  long cartQuantity;
+    @GeneratedValue
+    private Long  cartId;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
+    private UserEntity userEntity;
+
+    @ManyToOne
+    @JoinColumn(name = "book_id")
+    private BookEntity bookEntity;
+
+    private long cartQuantity;
     private long cartTotalPrice;
 
-    public CartEntity(){
-
+    public CartEntity() {
     }
 
-    public CartEntity(Long cartID, long cartQuantity, long cartTotalPrice) {
-        this.cartID = cartID;
+
+    public CartEntity(Long cartId, UserEntity userEntity, BookEntity bookEntity, long cartQuantity, long cartTotalPrice) {
+        this.cartId = cartId;
+        this.userEntity = userEntity;
+        this.bookEntity = bookEntity;
         this.cartQuantity = cartQuantity;
         this.cartTotalPrice = cartTotalPrice;
     }
@@ -33,7 +42,9 @@ public class CartEntity {
     @Override
     public String toString() {
         return "CartEntity{" +
-                "cartID=" + cartID +
+                "id=" + cartId +
+                ", userEntity=" + userEntity +
+                ", bookEntity=" + bookEntity +
                 ", cartQuantity=" + cartQuantity +
                 ", cartTotalPrice=" + cartTotalPrice +
                 '}';

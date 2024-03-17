@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController()
 public class OrderController {
 
-    @PutMapping("/placeOrder")
-    public String placeOrder(){
+    @PutMapping("/add-to-cart")
+    public String addToCart(){
         return "order is placed";
     }
 
