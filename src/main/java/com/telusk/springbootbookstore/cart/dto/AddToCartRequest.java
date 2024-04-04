@@ -11,17 +11,10 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 public class AddToCartRequest {
-    private long userId;
+
     private long bookId;
     private long quantity;
 
-    public long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(long userId) {
-        this.userId = userId;
-    }
 
     public long getBookId() {
         return bookId;

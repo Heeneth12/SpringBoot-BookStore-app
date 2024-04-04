@@ -11,4 +11,6 @@ public interface ICartReg {
      void addToCart(Long userId, Long bookId, long quantity);
 
      List<CartEntity> getAllCartItems(Long UserId);
+
+     String removeCartItemByCartID(Long cartId);
 }

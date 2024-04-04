@@ -58,5 +58,12 @@ public class CartImpl implements ICartReg {
         return cartRepo.findByUserEntityId(UserId);
     }
 
+    @Override
+    public String removeCartItemByCartID(Long cartID) {
+        cartRepo.deleteById(cartID);
+        return "successfully removed the item from cart";
+    }
+
+
 
 }

@@ -1,7 +1,6 @@
 package com.telusk.springbootbookstore.books.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.telusk.springbootbookstore.cart.entity.CartEntity;
-import com.telusk.springbootbookstore.user.entity.UserEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

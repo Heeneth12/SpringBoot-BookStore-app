@@ -1,17 +1,27 @@
 package com.telusk.springbootbookstore.order.controller;
 
 
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.telusk.springbootbookstore.order.service.IOrderReg;
+import com.telusk.springbootbookstore.user.service.IUserReg;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 @RestController()
 public class OrderController {
 
-    @PutMapping("/add-to-cart")
-    public String addToCart(){
-        return "order is placed";
+    @Autowired
+    IOrderReg iOrderReg;
+
+
+    @PutMapping("/placeOrder")
+    @ResponseStatus(HttpStatus.CREATED)
+    public String placeOrder(@RequestHeader long token){
+
+
+
+
+        return "order is placed Successfully";
     }
 
     @DeleteMapping("/cancelOrder")
