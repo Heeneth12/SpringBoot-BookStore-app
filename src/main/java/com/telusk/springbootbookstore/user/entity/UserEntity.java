@@ -6,10 +6,9 @@ import lombok.*;
 
 import java.util.List;
 
-@NoArgsConstructor
-@Getter
-@Setter
+
 @Entity
+@Data
 //userDetails
 public class UserEntity{
 
@@ -29,29 +28,9 @@ public class UserEntity{
     @JsonIgnore
     private List<CartEntity> carts;
 
-    public UserEntity(Long id, String firstName, String lastName, String email, String password, Integer age, String gender, Boolean userVerify, List<CartEntity> carts) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
-        this.age = age;
-        this.gender = gender;
-        this.userVerify = userVerify;
-        this.carts = carts;
-    }
+    // One-to-one relationship with AddressEntity
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private AddressEntity address;
 
-    @Override
-    public String toString() {
-        return "UserEntity{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", age=" + age +
-                ", gender='" + gender + '\'' +
-                ", userVerify=" + userVerify +
-                '}';
-    }
+
 }
