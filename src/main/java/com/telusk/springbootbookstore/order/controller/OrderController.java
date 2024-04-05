@@ -1,26 +1,33 @@
 package com.telusk.springbootbookstore.order.controller;
 
 
+import com.telusk.springbootbookstore.order.dto.OrderSummery;
 import com.telusk.springbootbookstore.order.entity.OrderEntity;
 import com.telusk.springbootbookstore.order.service.IOrderReg;
-import com.telusk.springbootbookstore.user.service.IUserReg;
+import com.telusk.springbootbookstore.user.config.UserJwt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController()
+@CrossOrigin("http://localhost:4200/")
 public class OrderController {
 
     @Autowired
     IOrderReg iOrderReg;
 
+    @Autowired
+    UserJwt userJwt;
 
-    @PutMapping("/placeOrder")
+
+    @PostMapping("/placeOrder")
     @ResponseStatus(HttpStatus.CREATED)
-    public String placeOrder(@RequestBody OrderEntity orderEntity){
-        return iOrderReg.placeOrderByJWT(orderEntity);
+    public ResponseEntity<String> placeOrder(@RequestBody OrderSummery orderSummery){
+        String message = iOrderReg.placeOrderByJWT(orderSummery);
+        return ResponseEntity.status(HttpStatus.CREATED).body("{\"message\": \"" + message + "\"}");
     }
 
     @DeleteMapping("/cancelOrder")
@@ -29,9 +36,11 @@ public class OrderController {
 
     }
 
-    @GetMapping("/getOrdersById/{id}")
-    public List<OrderEntity> getAllOrders(@PathVariable Long id){
-        return iOrderReg.getOrderDetailsByID(id);
+    @GetMapping("/getOrdersByJWT")
+    public List<OrderEntity> getAllOrders(@RequestHeader String token){
+
+        Long userId = userJwt.decodeToken(token);
+        return iOrderReg.getOrderDetailsByID(userId);
 
     }
 
