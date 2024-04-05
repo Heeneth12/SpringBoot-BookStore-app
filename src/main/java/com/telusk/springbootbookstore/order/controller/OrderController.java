@@ -1,11 +1,14 @@
 package com.telusk.springbootbookstore.order.controller;
 
 
+import com.telusk.springbootbookstore.order.entity.OrderEntity;
 import com.telusk.springbootbookstore.order.service.IOrderReg;
 import com.telusk.springbootbookstore.user.service.IUserReg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController()
 public class OrderController {
@@ -16,12 +19,8 @@ public class OrderController {
 
     @PutMapping("/placeOrder")
     @ResponseStatus(HttpStatus.CREATED)
-    public String placeOrder(@RequestHeader long token){
-
-
-
-
-        return "order is placed Successfully";
+    public String placeOrder(@RequestBody OrderEntity orderEntity){
+        return iOrderReg.placeOrderByJWT(orderEntity);
     }
 
     @DeleteMapping("/cancelOrder")
@@ -30,9 +29,9 @@ public class OrderController {
 
     }
 
-    @GetMapping("/getAllOrders")
-    public String getAllOrders(){
-        return "order is placed";
+    @GetMapping("/getOrdersById/{id}")
+    public List<OrderEntity> getAllOrders(@PathVariable Long id){
+        return iOrderReg.getOrderDetailsByID(id);
 
     }
 

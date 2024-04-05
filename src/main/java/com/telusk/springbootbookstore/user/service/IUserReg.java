@@ -19,4 +19,6 @@ public interface IUserReg {
     String userOtpGen(UserEmail userEmail);
     String forgotPasswordSetByOtp(UserForgotPasswordDto userForgotPasswordDto);
 
+    Optional<UserEntity> getUserById(Long id);
+
 }

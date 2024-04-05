@@ -1,10 +1,12 @@
 package com.telusk.springbootbookstore.user.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.telusk.springbootbookstore.cart.entity.CartEntity;
+import com.telusk.springbootbookstore.order.entity.OrderEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;
+import java.util.Set;
 
 
 @Entity
@@ -28,9 +30,14 @@ public class UserEntity{
     @JsonIgnore
     private List<CartEntity> carts;
 
+    @OneToMany(mappedBy = "userEntity")
+    @JsonIgnore
+    private List<OrderEntity> orders;
+
     // One-to-one relationship with AddressEntity
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private AddressEntity address;
+
 
 
 }

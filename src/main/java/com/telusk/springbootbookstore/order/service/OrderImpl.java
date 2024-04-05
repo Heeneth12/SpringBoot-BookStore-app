@@ -1,11 +1,15 @@
 package com.telusk.springbootbookstore.order.service;
 
+import com.telusk.springbootbookstore.order.entity.OrderEntity;
 import com.telusk.springbootbookstore.order.repository.OrderRepo;
 import com.telusk.springbootbookstore.user.config.UserJwt;
 import com.telusk.springbootbookstore.user.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+
+import java.util.Collections;
+import java.util.List;
 
 @Component
 public class OrderImpl implements IOrderReg {
@@ -22,10 +26,15 @@ public class OrderImpl implements IOrderReg {
 
 
     @Override
-    public String placeOrderByJWT(long Token) {
-        if( userRepo.existsById(userJwt.decodeToken(String.valueOf(Token)))){
-            return "present";
-        }
-        return "user not Present";
+    public String placeOrderByJWT(OrderEntity orderEntity ) {
+
+        orderRepo.save(orderEntity);
+        return "order successful";
     }
+    @Override
+    public List<OrderEntity> getOrderDetailsByID(long orderID) {
+        return orderRepo.findAllById(Collections.singleton(orderID));
+    }
+
+
 }

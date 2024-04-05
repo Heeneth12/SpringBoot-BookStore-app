@@ -8,28 +8,19 @@ import java.util.Date;
 import java.util.Set;
 
 @Entity
-@Setter
-@Getter
-@AllArgsConstructor
-@NoArgsConstructor
-@ToString
+@Data
 public class OrderEntity {
 
     @Id
+    @GeneratedValue
     private Long orderId;
     private Date orderData;
     private long orderPrice;
     private int orderQuantity;
     private Boolean orderCancel;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity userEntity;
-
-    @ManyToMany
-    @JoinColumn(name = "id_book")
-    private Set<BookEntity> bookEntities;
-
-
 
 }

@@ -152,5 +152,9 @@ public class UserImpl implements IUserReg {
        }
 
    }
+    @Override
+    public Optional<UserEntity> getUserById(Long id) {
+        return userRepo.findAllById(id);
+    }
 
 }

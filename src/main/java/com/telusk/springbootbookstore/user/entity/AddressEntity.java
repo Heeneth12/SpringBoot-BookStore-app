@@ -15,6 +15,7 @@ public class AddressEntity {
     private Long id;
     private String pinCode;
     private String locality;
+    private String phoneNumber;
     private String address;
     private String city;
     private String landmark;

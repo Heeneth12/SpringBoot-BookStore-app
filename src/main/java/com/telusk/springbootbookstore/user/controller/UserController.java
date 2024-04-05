@@ -3,7 +3,6 @@ package com.telusk.springbootbookstore.user.controller;
 
 import com.telusk.springbootbookstore.user.config.EmailSender;
 import com.telusk.springbootbookstore.user.config.UserJwt;
-import com.telusk.springbootbookstore.user.config.UserOTP;
 import com.telusk.springbootbookstore.user.dto.*;
 import com.telusk.springbootbookstore.user.service.IUserReg;
 import com.telusk.springbootbookstore.user.entity.UserEntity;
@@ -64,6 +63,12 @@ public class UserController {
     public String setTheForgotPassword( @RequestBody UserForgotPasswordDto userForgotPasswordDto){
 
         return iUserReg.forgotPasswordSetByOtp(userForgotPasswordDto);
+    }
+
+
+    @GetMapping("/Id/{id}")
+    public Optional<UserEntity> getUserById(@PathVariable Long id){
+        return iUserReg.getUserById(id);
     }
 
 }
