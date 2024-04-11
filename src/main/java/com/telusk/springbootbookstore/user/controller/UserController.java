@@ -4,6 +4,7 @@ package com.telusk.springbootbookstore.user.controller;
 import com.telusk.springbootbookstore.user.config.EmailSender;
 import com.telusk.springbootbookstore.user.config.UserJwt;
 import com.telusk.springbootbookstore.user.dto.*;
+import com.telusk.springbootbookstore.user.entity.AddressEntity;
 import com.telusk.springbootbookstore.user.service.IUserReg;
 import com.telusk.springbootbookstore.user.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,6 +70,14 @@ public class UserController {
     @GetMapping("/Id/{id}")
     public Optional<UserEntity> getUserById(@PathVariable Long id){
         return iUserReg.getUserById(id);
+    }
+
+
+    @PostMapping("add/address/{Id}")
+    public String addAddress(@RequestBody UserAddress userAddress , Long Id){
+
+        return iUserReg.addAddressToUser(userAddress,Id);
+
     }
 
 }

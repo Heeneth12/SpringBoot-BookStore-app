@@ -9,10 +9,6 @@ import java.util.Optional;
 
 public interface OrderRepo extends JpaRepository<OrderEntity , Long> {
 
-
     List<OrderEntity> findAllByUserEntity_Id(Long userId);
-
-    List<OrderEntity> findTopOrderByOrderDataDesc();
-
 
 }

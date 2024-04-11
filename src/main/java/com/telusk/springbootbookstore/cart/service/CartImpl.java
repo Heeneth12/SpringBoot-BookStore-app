@@ -6,6 +6,7 @@ import com.telusk.springbootbookstore.cart.entity.CartEntity;
 import com.telusk.springbootbookstore.cart.repository.CartRepo;
 import com.telusk.springbootbookstore.user.entity.UserEntity;
 import com.telusk.springbootbookstore.user.repository.UserRepo;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -64,6 +65,17 @@ public class CartImpl implements ICartReg {
         return "successfully removed the item from cart";
     }
 
+    @Override
+    @Transactional
+    // method with @Transactional to ensure that all changes are committed as a single transaction.
+    public void confirmOrder(Long userId) {
+        List<CartEntity> cartItems = cartRepo.findByUserEntityId(userId);
+        for (CartEntity cartItem : cartItems) {
+            cartItem.setOrdered(true);
+            cartRepo.save(cartItem); // Save the updated cart item
+        }
+        System.out.println("Order confirmed for user with ID: " + userId);
+    }
 
 
 }

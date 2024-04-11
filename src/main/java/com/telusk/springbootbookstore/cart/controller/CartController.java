@@ -13,7 +13,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController()
 @CrossOrigin("http://localhost:4200/")
@@ -28,15 +30,21 @@ public class CartController {
 
     //end point to add to cart item
     @PostMapping("/addToCart")
-    public ResponseEntity<String> addToCart(@RequestBody AddToCartRequest request ,@RequestHeader String token) {
+    public ResponseEntity<Map<String, String>> addToCart(@RequestBody AddToCartRequest request , @RequestHeader String token) {
         long userId = userJwt.decodeToken(token);
         try {
             iCartReg.addToCart(userId , request.getBookId(), request.getQuantity());
-            return ResponseEntity.ok("Item added to cart successfully.");
+            // Create a map to represent the response data
+            Map<String, String> responseData = new HashMap<>();
+            responseData.put("message", "Item added to cart successfully.");
+            // Return a ResponseEntity with the response data and HTTP status OK
+            return ResponseEntity.ok(responseData);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to add item to cart: " + e.getMessage());
+            // If an exception occurs, return an error response with HTTP status INTERNAL_SERVER_ERROR
+            Map<String, String> errorResponse = new HashMap<>();
+            errorResponse.put("error", "Failed to add item to cart: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
         }
-
     }
 
     //To get cart items
@@ -54,6 +62,25 @@ public class CartController {
         return iCartReg.removeCartItemByCartID(cartID);
     }
 
+    @PostMapping("/confirmOrder")
+    public ResponseEntity<Map<String, String>> confirmOrder(@RequestHeader String token) {
+        long userId = userJwt.decodeToken(token);
+        try {
+            iCartReg.confirmOrder(userId);
+            // Create a map to represent the response data
+            Map<String, String> responseData = new HashMap<>();
+            responseData.put("message", "Order confirmed successfully.");
+            // Return a ResponseEntity with the response data and HTTP status OK
+            return ResponseEntity.ok(responseData);
+        } catch (Exception e) {
+            // If an exception occurs, return an error response with HTTP status INTERNAL_SERVER_ERROR
+            Map<String, String> errorResponse = new HashMap<>();
+            errorResponse.put("error", "Failed to confirm order: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
+        }
+    }
+
+
 
     @PutMapping("/cart/quantityUpdate")
     public  String updateQuantity(){
@@ -65,4 +92,6 @@ public class CartController {
     public  String removeByUserId(){
         return "remove by user id";
     }
+
 }
+

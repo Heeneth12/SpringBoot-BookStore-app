@@ -13,4 +13,6 @@ public interface ICartReg {
      List<CartEntity> getAllCartItems(Long UserId);
 
      String removeCartItemByCartID(Long cartId);
+
+     void confirmOrder(Long userId);
 }

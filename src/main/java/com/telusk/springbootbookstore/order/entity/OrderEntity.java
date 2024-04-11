@@ -1,5 +1,6 @@
 package com.telusk.springbootbookstore.order.entity;
 import com.telusk.springbootbookstore.books.entity.BookEntity;
+import com.telusk.springbootbookstore.cart.entity.CartEntity;
 import com.telusk.springbootbookstore.user.entity.UserEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -22,5 +23,6 @@ public class OrderEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity userEntity;
+
 
 }

@@ -5,8 +5,11 @@ import com.telusk.springbootbookstore.user.config.PasswordEncoder;
 import com.telusk.springbootbookstore.user.config.UserJwt;
 import com.telusk.springbootbookstore.user.config.UserOTP;
 import com.telusk.springbootbookstore.user.dto.*;
+import com.telusk.springbootbookstore.user.entity.AddressEntity;
 import com.telusk.springbootbookstore.user.entity.UserEntity;
+import com.telusk.springbootbookstore.user.repository.AddressRepo;
 import com.telusk.springbootbookstore.user.repository.UserRepo;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -33,6 +36,9 @@ public class UserImpl implements IUserReg {
 
     @Autowired
     UserOTP userOTP;
+
+    @Autowired
+    AddressRepo addressRepo;
 
     public  Integer otpChecker;
 
@@ -155,6 +161,31 @@ public class UserImpl implements IUserReg {
     @Override
     public Optional<UserEntity> getUserById(Long id) {
         return userRepo.findAllById(id);
+    }
+
+    public AddressEntity mapUserAddressToAddressEntity(UserAddress userAddress) {
+        AddressEntity addressEntity = new AddressEntity();
+        BeanUtils.copyProperties(userAddress, addressEntity);
+        return addressEntity;
+    }
+
+// Then, in your addAddressToUser method:
+
+    public String addAddressToUser(UserAddress userAddress, Long userId) {
+        // Map UserAddress to AddressEntity
+        AddressEntity addressEntity = mapUserAddressToAddressEntity(userAddress);
+
+        // Set the user ID
+        UserEntity userEntity = userRepo.findById(userId).orElse(null);
+        if (userEntity == null) {
+            return "User not found";
+        }
+        addressEntity.setUser(userEntity);
+
+        // Save the address
+        addressRepo.save(addressEntity);
+
+        return "Added user address successfully";
     }
 
 }

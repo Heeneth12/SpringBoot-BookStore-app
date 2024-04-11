@@ -15,4 +15,6 @@ public class OrderSummery {
     private int orderQuantity;
     private Boolean orderCancel;
     private Long userID;
+    private Long cartID;
+    private Boolean cartOrderedBoolean;
 }

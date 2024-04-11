@@ -44,9 +44,9 @@ public class OrderController {
 
     }
 
-    @GetMapping("/getAllOrder/byUSer")
-    public String getAllOrdersForUser(){
-        return "order is placed";
+    @GetMapping("/getAllOrder/byUSer/{Id}")
+    public List<OrderEntity> getAllOrdersById( @PathVariable Long Id){
+        return iOrderReg.getOrderDetailsByID(Id);
 
     }
 

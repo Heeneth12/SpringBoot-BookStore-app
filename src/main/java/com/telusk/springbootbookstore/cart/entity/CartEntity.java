@@ -21,6 +21,7 @@ public class CartEntity {
     @JoinColumn(name = "user_id")
     @JsonIgnore
     private UserEntity userEntity;
+    private boolean ordered;
 
     @ManyToOne
     @JoinColumn(name = "book_id")
