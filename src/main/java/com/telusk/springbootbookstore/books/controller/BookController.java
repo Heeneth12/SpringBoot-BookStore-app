@@ -57,7 +57,7 @@ public class BookController {
     //change book  quantity by user id and token , new quantity
     @PutMapping("/changeBook/quantity")
     public  String changeBookQuantityBy( ){
-        return "Successfully added quantiy";
+        return "Successfully added quantity";
     }
 
 

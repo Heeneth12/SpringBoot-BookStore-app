@@ -133,8 +133,13 @@ public class UserImpl implements IUserReg {
 
             String subject = "OTP generated successfully and sent  reset your password ";
             emailSender.sendEmail( userEntity.getFirstName() ,userEntity.getEmail() ,subject, body);
+            return "OTP send";
         }
-        return "user not found";
+        else{
+
+            return "user not found";
+        }
+
     }
 
     public String forgotPasswordSetByOtp(UserForgotPasswordDto userForgotPasswordDto){

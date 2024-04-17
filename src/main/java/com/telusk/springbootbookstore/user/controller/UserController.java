@@ -9,13 +9,15 @@ import com.telusk.springbootbookstore.user.service.IUserReg;
 import com.telusk.springbootbookstore.user.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin("*")
 public class UserController {
 
 
@@ -56,14 +58,19 @@ public class UserController {
     }
 
     @PostMapping("/forgotPassword")
-    public String forgotPassword (@RequestBody UserEmail userEmail){
-        return iUserReg.userOtpGen(userEmail);
+    public ResponseEntity<Map<String, String>> forgotPassword(@RequestBody UserEmail userEmail) {
+        String otpMessage = iUserReg.userOtpGen(userEmail);
+        Map<String, String> response = new HashMap<>();
+        response.put("message", otpMessage);
+        return ResponseEntity.ok().body(response);
     }
 
-    @PostMapping("/setTheForgotPassword ")
-    public String setTheForgotPassword( @RequestBody UserForgotPasswordDto userForgotPasswordDto){
-
-        return iUserReg.forgotPasswordSetByOtp(userForgotPasswordDto);
+    @PostMapping("/setTheForgotPassword")
+    public ResponseEntity<Map<String ,String>> setTheForgotPassword( @RequestBody UserForgotPasswordDto userForgotPasswordDto){
+        String passwordMessage =  iUserReg.forgotPasswordSetByOtp(userForgotPasswordDto);
+        Map<String, String> response = new HashMap<>();
+        response.put("message" , passwordMessage);
+        return ResponseEntity.ok().body(response);
     }
 
 
